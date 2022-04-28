@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:food_ordering_app/model/deliveryadressmodel.dart';
 import 'package:food_ordering_app/model/review_cart_model.dart';
+import 'package:location/location.dart';
 
 class CheckoutProvider with ChangeNotifier {
   bool isloadding = false;
@@ -18,7 +19,7 @@ class CheckoutProvider with ChangeNotifier {
   TextEditingController city = TextEditingController();
   TextEditingController aera = TextEditingController();
   TextEditingController pincode = TextEditingController();
-  LocationData setLoaction;
+  late LocationData setLoaction;
 
   void validator(context, myType) async {
     if (firstName.text.isEmpty) {

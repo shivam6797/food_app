@@ -3,10 +3,13 @@ import 'package:food_ordering_app/config/colors.dart';
 import 'package:food_ordering_app/model/deliveryadressmodel.dart';
 import 'package:food_ordering_app/provider/checkout_provider.dart';
 import 'package:food_ordering_app/screens/check_out/add_delivery_address/add_delivery_address.dart';
+import 'package:food_ordering_app/screens/check_out/delivery_details/single_delivery_item.dart';
 import 'package:food_ordering_app/screens/check_out/payment_summary/payment_summary.dart';
 import 'package:provider/provider.dart';
 
 class DeliveryDetails extends StatefulWidget {
+  const DeliveryDetails({Key? key}) : super(key: key);
+
   @override
   _DeliveryDetailsState createState() => _DeliveryDetailsState();
 }

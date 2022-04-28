@@ -6,8 +6,8 @@ import 'package:food_ordering_app/screens/check_out/delivery_details/single_deli
 import 'package:provider/provider.dart';
 
 class PaymentSummary extends StatefulWidget {
-  final DeliveryAddressModel? deliverAddressList;
-  PaymentSummary({this.deliverAddressList});
+  final DeliveryAddressModel deliverAddressList;
+  PaymentSummary({required this.deliverAddressList});
 
   @override
   _PaymentSummaryState createState() => _PaymentSummaryState();
@@ -27,9 +27,9 @@ class _PaymentSummaryState extends State<PaymentSummary> {
     reviewCartProvider.getReviewCartData();
 
     double discount = 30;
-    double discountValue;
+    double? discountValue;
     double shippingChanrge = 3.7;
-    double total;
+    double? total;
     double totalPrice = reviewCartProvider.getTotalPrice();
     if (totalPrice > 300) {
       discountValue = (totalPrice * discount) / 100;
@@ -44,9 +44,9 @@ class _PaymentSummaryState extends State<PaymentSummary> {
         ),
       ),
       bottomNavigationBar: ListTile(
-        title: const Text("Total Amount"),
+        title: Text("Total Amount"),
         subtitle: Text(
-          "\$${total + 5}",
+          "\$${total! + 5}",
           style: TextStyle(
             color: Colors.green[900],
             fontWeight: FontWeight.bold,
@@ -90,14 +90,14 @@ class _PaymentSummaryState extends State<PaymentSummary> {
               children: [
                 SingleDeliveryItem(
                   address:
-                      "aera, ${widget.deliverAddressList!.aera}, street, ${widget.deliverAddressList!.street}, society ${widget.deliverAddressList.scoirty}, pincode ${widget.deliverAddressList.pinCode}",
+                      "aera, ${widget.deliverAddressList.aera}, street, ${widget.deliverAddressList.street}, society ${widget.deliverAddressList.scoirty}, pincode ${widget.deliverAddressList.pinCode}",
                   title:
-                      "${widget.deliverAddressList!.firstName} ${widget.deliverAddressList!.lastName}",
-                  number: widget.deliverAddressList!.mobileNo,
-                  addressType: widget.deliverAddressList!.addressType ==
+                      "${widget.deliverAddressList.firstName} ${widget.deliverAddressList.lastName}",
+                  number: widget.deliverAddressList.mobileNo,
+                  addressType: widget.deliverAddressList.addressType ==
                           "AddressTypes.Home"
                       ? "Home"
-                      : widget.deliverAddressList!.addressType ==
+                      : widget.deliverAddressList.addressType ==
                               "AddressTypes.Other"
                           ? "Other"
                           : "Work",
@@ -162,7 +162,7 @@ class _PaymentSummaryState extends State<PaymentSummary> {
                   value: AddressTypes.Home,
                   groupValue: myType,
                   title: const Text("Home"),
-                  onChanged: (value) {
+                  onChanged: ( value) {
                     setState(() {
                       myType = value as dynamic;
                     });
@@ -176,7 +176,7 @@ class _PaymentSummaryState extends State<PaymentSummary> {
                   value: AddressTypes.OnlinePayment,
                   groupValue: myType,
                   title: const Text("OnlinePayment"),
-                  onChanged: (value) {
+                  onChanged: ( value) {
                     setState(() {
                       myType = value as dynamic;
                     });

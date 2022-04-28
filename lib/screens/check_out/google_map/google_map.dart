@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:food_ordering_app/config/colors.dart';
 import 'package:food_ordering_app/provider/checkout_provider.dart';
-import 'package:google_maps/google_maps.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:location/location.dart';
 import 'package:provider/provider.dart';
 
 class CostomGoogleMap extends StatefulWidget {
@@ -10,16 +11,16 @@ class CostomGoogleMap extends StatefulWidget {
 }
 
 class _GoogleMapState extends State<CostomGoogleMap> {
-  LatLng _initialcameraposition = LatLng(20.5937, 78.9629);
-  GoogleMapController controller;
-  Location _location = Location();
+  final LatLng _initialcameraposition = const LatLng(20.5937, 78.9629);
+  late GoogleMapController controller;
+  final Location _location = Location();
   void _onMapCreated(GoogleMapController _value) {
     controller = _value;
     _location.onLocationChanged.listen((event) {
       controller.animateCamera(
         CameraUpdate.newCameraPosition(
           CameraPosition(
-              target: LatLng(event.latitude, event.longitude), zoom: 15),
+              target: LatLng(event.latitude!, event.longitude!), zoom: 15),
         ),
       );
     });

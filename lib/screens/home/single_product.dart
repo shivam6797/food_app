@@ -7,7 +7,7 @@ import 'package:food_ordering_app/widget/product_unit.dart';
 class SingalProduct extends StatefulWidget {
   final String productImage;
   final String productName;
-  final int productPrice;
+  final String productPrice;
   final VoidCallback  onTap;
   final String productId;
   final ProductModel productUnit;
@@ -138,7 +138,7 @@ class _SingalProductState extends State<SingalProduct> {
                               productId: widget.productId,
                               productImage: widget.productImage,
                               productName: widget.productName,
-                              productPrice: widget.productPrice,
+                              productPrice: int.parse(widget.productPrice),
                               productUnit: unitData ?? firstValue,
                             ),
                           ],
