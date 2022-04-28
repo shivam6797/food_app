@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -7,7 +9,48 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xffcbcbcb),
-      drawer: const Drawer(),
+      drawer:  Drawer(
+        child:Container(
+          color:const Color(0xffd1ad17),
+          child: ListView(
+            children: [
+                DrawerHeader(child: Row(
+                  children: [
+                    const CircleAvatar(
+                      backgroundColor: Colors.white54,
+                      radius:43,
+                      child: CircleAvatar(
+                        radius:40,
+                        backgroundColor:  Color(0xffd1ad17),
+                      ),
+                    ),
+                    const SizedBox(height:20,),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children:  [
+                        const Text("Welcome Guest"),
+                    const SizedBox(height:7,),
+                       Container(
+                         height:30,
+                         child: OutlineButton(onPressed:(){},child:const Text("Login"),
+                         shape: RoundedRectangleBorder(
+                           borderRadius:BorderRadius.circular(15),
+                           side: const BorderSide(
+                             width:2
+                           )
+                         ),
+                         ),
+                         
+                       )
+                      ],
+                    )
+                  ],
+                ),),
+                listTile(icon:Icons.abc, title:"Home")
+            ],
+          ),
+        ),
+      ),
       appBar: AppBar(
         iconTheme: const IconThemeData(color: Colors.black),
         elevation: 0,
@@ -285,4 +328,13 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
+
+ Widget listTile(IconData icon, String title, {IconData icon, title}){
+   return ListTile(
+    leading: Icon(icon,size:32,),
+    title: Text(title,style:const TextStyle(color:Colors.black45),),
+   );
+ }
+
+
 }

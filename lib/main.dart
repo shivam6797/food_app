@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:food_ordering_app/auth/sign_in.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -19,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home:  SignIn(),
+      home:  const SignIn(),
     );
   }
 }
