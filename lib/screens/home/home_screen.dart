@@ -1,52 +1,110 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
+import 'package:food_ordering_app/provider/product_provider.dart';
+import 'package:food_ordering_app/screens/home/single_product.dart';
+import 'package:food_ordering_app/screens/product_overview/product_overview.dart';
+import 'package:food_ordering_app/screens/search/search.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+   late ProductProvider productProvider;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xffcbcbcb),
-      drawer:  Drawer(
-        child:Container(
-          color:const Color(0xffd1ad17),
+      drawer: Drawer(
+        child: Container(
+          color: const Color(0xffd1ad17),
           child: ListView(
             children: [
-                DrawerHeader(child: Row(
+              DrawerHeader(
+                child: Row(
                   children: [
                     const CircleAvatar(
                       backgroundColor: Colors.white54,
-                      radius:43,
+                      radius: 43,
                       child: CircleAvatar(
-                        radius:40,
-                        backgroundColor:  Color(0xffd1ad17),
+                        radius: 40,
+                        backgroundColor: Color(0xffd1ad17),
                       ),
                     ),
-                    const SizedBox(height:20,),
+                    const SizedBox(
+                      width: 20,
+                    ),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children:  [
+                      children: [
                         const Text("Welcome Guest"),
-                    const SizedBox(height:7,),
-                       Container(
-                         height:30,
-                         child: OutlineButton(onPressed:(){},child:const Text("Login"),
-                         shape: RoundedRectangleBorder(
-                           borderRadius:BorderRadius.circular(15),
-                           side: const BorderSide(
-                             width:2
-                           )
-                         ),
-                         ),
-                         
-                       )
+                        const SizedBox(
+                          height: 7,
+                        ),
+                        Container(
+                          height: 30,
+                          child: OutlineButton(
+                            onPressed: () {},
+                            child: const Text("Login"),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15),
+                                side: const BorderSide(width: 2)),
+                          ),
+                        )
                       ],
                     )
                   ],
-                ),),
-                listTile(icon:Icons.abc, title:"Home")
+                ),
+              ),
+              listTile(Icons.home_outlined, 'home'),
+              listTile(Icons.shopping_bag, 'Review Cart'),
+              listTile(Icons.person_outline, 'Profile'),
+              listTile(Icons.notifications_outlined, 'Notification'),
+              listTile(Icons.star_outline, 'Rating & Review'),
+              listTile(Icons.favorite_outline, 'Wishlist'),
+              listTile(Icons.copy_outlined, 'Raise and Complaint'),
+              listTile(Icons.format_quote_outlined, 'FAQs'),
+              Container(
+                height: 350,
+                padding: const EdgeInsets.symmetric(horizontal:20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text("Contact Support"),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      children: const [
+                        Text("Call us:"),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text("+919910496797"),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: const [
+                          Text("Mail us:"),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text("mithunpratap6797@gmail.com"),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              )
             ],
           ),
         ),
@@ -329,12 +387,111 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
- Widget listTile(IconData icon, String title, {IconData icon, title}){
-   return ListTile(
-    leading: Icon(icon,size:32,),
-    title: Text(title,style:const TextStyle(color:Colors.black45),),
-   );
+  Widget listTile(IconData icon, String title) {
+    return ListTile(
+      leading: Icon(
+        icon,
+        size: 32,
+      ),
+      title: Text(
+        title,
+        style: const TextStyle(color: Colors.black45),
+      ),
+    );
+  }
+
+ Widget _buildFreshProduct(context){
+   return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 20),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text('Fresh Fruits'),
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => Search(
+                        search: productProvider.getFreshProductDataList,
+                      ),
+                    ),
+                  );
+                },
+                child: const Text(
+                  'view all',
+                  style: TextStyle(color: Colors.grey),
+                ),
+              ),
+            ],
+          ),
+        )]);
  }
 
+ Widget _buildHerbsProduct(){
+   return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 20),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text('Herbs Seasonings'),
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => Search(
+                        search: productProvider.getHerbsProductDataList,
+                      ),
+                    ),
+                  );
+                },
+                child: const Text(
+                  'view all',
+                  style: TextStyle(color: Colors.grey),
+                ),
+              ),
+            ],
+          ),
+        ),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: productProvider.getHerbsProductDataList.map(
+              (herbsProductData) {
+                return SingalProduct(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => ProductOverview(
+                          productId: herbsProductData.productId.toString(),
+                          productPrice:herbsProductData.productPrice,
+                          productName: herbsProductData.productName.toString(),
+                          productImage: herbsProductData.productImage.toString(),
+                        ),
+                      ),
+                    );
+                  },
+                  productId: herbsProductData.productId.toString(),
+                  productPrice: herbsProductData.productPrice,
+                  productImage: herbsProductData.productImage.toString(),
+                  productName: herbsProductData.productName.toString(),
+                  productUnit:herbsProductData ,
+                );
+              },
+            ).toList(),
+            // children: [
 
-}
+            // ],
+          ),
+        ),
+      ],
+    );
+  }
+
+ }
+
